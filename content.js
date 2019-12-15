@@ -1,21 +1,23 @@
-console.log("from content")
 
-chrome.extension.onMessage.addListener(function (command, sender, sendResponse) {
+// Content Script listener responds on messages dispatched by main.js (main extension file)
+// takes in a command input distructured to {action,color,phrase}
+chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, sendResponse) {
 
-
-    if (command.action == 'erase') {
+    if (action == 'erase') {
         
         erase()
     }
-    if (command.action == 'mark') {
+    if (action == 'mark') {
         
-        highlighte(command)
+        highlighte({color,phrase})
     }
 });
 
+/**
+ * Erase the previously highlighted word/phrase/
+ */
 function erase() {
 
-    console.log("undoo")
     if (window.find && window.getSelection) {
         document.designMode = "on";
         var sel = window.getSelection();
@@ -30,19 +32,21 @@ function erase() {
         document.designMode = "off";
     }
 }
+
 /**
  * Highlighte specific keyword and set highliter color
- * @param  {} command - action command from main.js dispatcher
+ * @param  {} {color - color of highlighter
+ * @param  {} phrase} - word/phrase to highlite
  */
-function highlighte(command){
+function highlighte({color,phrase}){
 
     if (window.find && window.getSelection) {
         document.designMode = "on";
         var sel = window.getSelection();
         sel.collapse(document.body, 0);
 
-        while (window.find(command.phrase)) {
-            document.execCommand("HiliteColor", false, command.marker_color);
+        while (window.find(phrase)) {
+            document.execCommand("HiliteColor", false, color);
 
         }
         document.designMode = "off";
