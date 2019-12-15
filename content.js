@@ -5,25 +5,28 @@ chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, 
 
     if (action == 'erase') {
         
-        erase()
+        console.log(phrase)
+        erase(phrase)
+        sendResponse({});
     }
     if (action == 'mark') {
         
         highlighte({color,phrase})
+        sendResponse({});
     }
 });
 
 /**
  * Erase the previously highlighted word/phrase/
  */
-function erase() {
+function erase(phrase) {
 
     if (window.find && window.getSelection) {
         document.designMode = "on";
         var sel = window.getSelection();
         sel.collapse(document.body, 0);
 
-        while (window.find("easy")) {
+        while (window.find(phrase)) {
 
             document.execCommand("undo");
             document.execCommand("undo");
@@ -54,32 +57,3 @@ function highlighte({color,phrase}){
 
 }
 
-
-
-
-
-/*
-(function highlight() {
-
-    // initialize parameters invoked on content script execution
-
-    let search_param = "a"
-    let color_param = "yellow"
-    console.log('as')
-
-
-    if (window.find && window.getSelection) {
-        document.designMode = "on";
-        var sel = window.getSelection();
-        sel.collapse(document.body, 0);
-
-        while (window.find(search_param)) {
-            document.execCommand("HiliteColor", false, color_param);
-            sel.collapseToEnd();
-        }
-        document.designMode = "off";
-    }
-
-}());
-
-**/
