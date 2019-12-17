@@ -6,7 +6,7 @@ chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, 
     if (action == 'erase') {
         
         console.log(phrase)
-        erase(phrase)
+        erase(color,phrase)
         sendResponse({});
     }
     if (action == 'mark') {
@@ -19,21 +19,45 @@ chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, 
 /**
  * Erase the previously highlighted word/phrase/
  */
-function erase(phrase) {
+function erase(color,phrase) {
 
-    if (window.find && window.getSelection) {
-        document.designMode = "on";
-        var sel = window.getSelection();
-        sel.collapse(document.body, 0);
+    if (color == "yellow"){
 
-        while (window.find(phrase)) {
+        if (window.find && window.getSelection) {
+            document.designMode = "on";
+            var sel = window.getSelection();
+            sel.collapse(document.body, 0);
+    
+            while (window.find(phrase)) {
+    
+                document.execCommand("RemoveFormat", false, null);
+                
 
-            document.execCommand("undo");
-            document.execCommand("undo");
-
+            }
+            document.designMode = "off";
         }
-        document.designMode = "off";
+
     }
+
+    if (color == "pink"){
+
+        if (window.find && window.getSelection) {
+            document.designMode = "on";
+            var sel = window.getSelection();
+            sel.collapse(document.body, 0);
+    
+            while (window.find(phrase)) {
+    
+                document.execCommand("RemoveFormat", false, null);
+                
+    
+            }
+            document.designMode = "off";
+        }
+
+    }
+
+   
 }
 
 /**
