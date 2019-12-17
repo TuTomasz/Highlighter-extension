@@ -56,6 +56,40 @@ function erase(color,phrase) {
         }
 
     }
+    if (color == "green"){
+
+        if (window.find && window.getSelection) {
+            document.designMode = "on";
+            var sel = window.getSelection();
+            sel.collapse(document.body, 0);
+    
+            while (window.find(phrase)) {
+    
+                document.execCommand("RemoveFormat", false, null);
+                
+    
+            }
+            document.designMode = "off";
+        }
+
+    }
+    if (color == "blue"){
+
+        if (window.find && window.getSelection) {
+            document.designMode = "on";
+            var sel = window.getSelection();
+            sel.collapse(document.body, 0);
+    
+            while (window.find(phrase)) {
+    
+                document.execCommand("RemoveFormat", false, null);
+                
+    
+            }
+            document.designMode = "off";
+        }
+
+    }
 
    
 }

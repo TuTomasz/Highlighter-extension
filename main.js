@@ -1,5 +1,6 @@
 window.onload = ()=> {
 
+    // state of higlighted words on webpage
     state = {
         "yellow":null,
         "pink":null,
@@ -18,143 +19,77 @@ window.onload = ()=> {
         }
         return false
     }
-    
-    
-    /**
-     * Yellow highliter function
-     */
-    highlighteYellow = () =>{
-
-        if (isValidState("yellow") == true) {
-            eraseYellow()
-        }
-
-        let input = document.getElementById("input-yellow").value
-        executeAction("yellow",input)
-        setState("yellow",input)
+}
+/**
+ * Function higlites input text given a specific color.
+ * @param  {} color - highlighter color
+ * @param  {} input - input text
+ */
+highlight = (color, input) =>{
+    if (isValidState(color) == true) {
+        erase(color)
     }
-
-    /**
-     * Pink highliter function
-     */
-    highlightePink = () =>{
-
-        if (isValidState("pink") == true) {
-            erasePink()
-        }
-        let input = document.getElementById("input-pink").value
-        executeAction("pink",input)
-        setState("pink",input)
-
-    }
-    /**
-     * Blue highliter function
-     */
-    highlighteBlue = () =>{
-
-        if (isValidState("blue") == true) {
-            eraseBlue()
-        }
- 
-        let input = document.getElementById("input-blue").value
-        executeAction("blue",input)
-        setState("blue",input)
-
-    }
-    /**
-     * Green highliter function
-     */
-    highlighteGreen = () =>{
-
-        if (isValidState("green") == true) {
-            eraseGreen()
-        }
-
-        let input = document.getElementById("input-green").value
-        executeAction("green",input)
-        setState("green",input)
-
-    }
-    /**
-     * Function sends messages to content script to execute the 
-     * highlighte command
-     * 
-     * @param  {} color - highlighte color
-     * @param  {} input - word/phrase to highlighte
-     */
-    executeAction = (color,input) =>{
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {action: "mark",color:color,phrase:input}, function(response) {
-                if(response == undefined || Object.keys(response).length == 0) return;
-            });  
-        });
-    }
-
-    /**
-     * Erase specific highlighter
-     */
-    eraseYellow = () =>{
-
-        let lastInput = getState("yellow")
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {action: "erase",color:"yellow",phrase:lastInput}, function(response) {
-                if(response == undefined || Object.keys(response).length == 0) return;
-            });  
-        });
-      
-    }
-    /**
-     * Erase specific highlighter
-     */
-    erasePink = () =>{
-
-        let lastInput = getState("pink")
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {action: "erase",color:"pink",phrase:lastInput}, function(response) {
-                if(response == undefined || Object.keys(response).length == 0) return;
-            });  
-        });
-      
-    }/**
-     * Erase specific highlighter
-     */
-    eraseBlue = () =>{
-
-        let lastInput = getState("blue")
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {action: "erase",color:"blue",phrase:lastInput}, function(response) {
-                if(response == undefined || Object.keys(response).length == 0) return;
-            });  
-        });
-      
-    }
-    /**
-     * Erase specific highlighter
-     */
-    eraseGreen = () =>{
-
-        let lastInput = getState("green")
-        chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-            chrome.tabs.sendMessage(tabs[0].id, {action: "erase",color:"green",phrase:lastInput}, function(response) {
-                if(response == undefined || Object.keys(response).length == 0) return;
-            });  
-        });
-      
-    }
-
-    /**
-     * Event Listeners for highlighter buttons
-     */
-
-    document.getElementById('highlighte-yellow').onclick = highlighteYellow
-    document.getElementById('highlighte-pink').onclick = highlightePink
-    document.getElementById('highlighte-blue').onclick = highlighteBlue
-    document.getElementById('highlighte-green').onclick = highlighteGreen
-
-    document.getElementById('erase-yellow').onclick = eraseYellow;
-    document.getElementById('erase-pink').onclick = erasePink;
-    document.getElementById('erase-blue').onclick = eraseBlue;
-    document.getElementById('erase-green').onclick = eraseGreen;
-
+    execute(color,input)
+    setState(color,input)
 
 }
+/**
+ * Erase the given highlighter
+ * @param  {} color -highlighter color
+ */
+erase = (color) =>{
+
+    let lastInput = getState(color)
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        chrome.tabs.sendMessage(tabs[0].id, {action: "erase",color:color,phrase:lastInput}, function(response) {
+            if(response == undefined || Object.keys(response).length == 0) return;
+        });  
+    });
+  
+}
+/**
+ * Messages the injected content script to execute highlighte operation
+ * @param  {} color - highlighter color
+ * @param  {} input - input text
+ */
+execute = (color,input) =>{
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+        chrome.tabs.sendMessage(tabs[0].id, {action: "mark",color:color,phrase:input}, function(response) {
+            if(response == undefined || Object.keys(response).length == 0) return;
+        });  
+    });
+}
+
+// event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    
+    document.getElementById('highlighte-yellow').addEventListener('click', function() {
+        let input = document.getElementById("input-yellow").value
+        highlight("yellow",input)
+    });
+    document.getElementById('highlighte-pink').addEventListener('click', function() {
+        let input = document.getElementById("input-pink").value
+        highlight("pink",input)
+    });
+    document.getElementById('highlighte-blue').addEventListener('click', function() {
+        let input = document.getElementById("input-blue").value
+        highlight("blue",input)
+    });
+    document.getElementById('highlighte-green').addEventListener('click', function() {
+        let input = document.getElementById("input-green").value
+        highlight("green",input)
+    });
+
+    document.getElementById('erase-yellow').addEventListener('click', ()=>{
+        erase("yellow")
+    })
+    document.getElementById('erase-pink').addEventListener('click', ()=>{
+        erase("pink")
+    })
+    document.getElementById('erase-blue').addEventListener('click', ()=>{
+        erase('blue')
+    })
+    document.getElementById('erase-green').addEventListener('click', ()=>{
+        erase('green')
+    })
+});
