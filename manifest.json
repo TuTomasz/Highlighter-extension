@@ -3,8 +3,13 @@
     "name": "Highlighter",
     "version": "0.0.1",
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
+    "background": {
+        "scripts": ["main.js"],
+        "persistent": true
+      },
     "content_scripts": [
         {
             "matches": [
