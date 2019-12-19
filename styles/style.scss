@@ -1,144 +1,136 @@
-
-body{
-    width: 350px;
-    height: 400hv;
-    margin: 0%;
-}
-
-.responsive {
-    width: 100%;
-    height: auto;
-}
-.header{
-	 	display: flex;
-    position: relative; 
-    background-color: #FFFFFF; 
-    border-width: 1px; 
-    border-style: solid; 
-    border-color: #DDDDDD; 
-    border-radius: 0px; 
-    box-shadow: 0px 10px 6px -6px #777777; 
-}
-.main-container{
+// Main container for the application
+body {
+  width: 350px;
+  height: 400hv;
+  margin: 0%;
+  background-color: #d3d3d3;
+  .main-container {
     display: flex;
     justify-content: center;
     flex-direction: column;
     background-color: #d3d3d3;
+  }
 }
-.row-highlighters{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+
+// card style for various sections of the app
+@mixin cardStyle {
+  margin-top: 1%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  position: relative;
+  background-color: #ffffff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #dddddd;
+  border-radius: 0px;
+  box-shadow: 0px 10px 6px -6px #777777;
 }
-.highlighter{
+
+// Header of the app includes logo
+.header {
+  display: flex;
+  position: relative;
+  @include cardStyle();
+  margin-top: 0;
+  padding-top: 0;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+// Highlighters section of the app
+.highlighters {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .highlighter {
     display: flex;
     justify-content: space-evenly;
-    margin-top:1%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    position: relative; 
-    background-color: #FFFFFF; 
-    border-width: 1px; 
-    border-style: solid; 
-    border-color: #DDDDDD; 
-    border-radius: 0px; 
-    box-shadow: 0px 10px 6px -6px #777777; 
-}
-.footer{	
-		display: flex;
-		justify-content: space-around;
-    margin-top:1%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    position: relative; 
-    background-color: #FFFFFF; 
-    border-width: 1px; 
-    border-style: solid; 
-    border-color: #DDDDDD; 
-    border-radius: 0px; 
-    box-shadow: 0px 10px 6px -6px #777777; 
+    @include cardStyle();
 
+    @mixin orbStyles {
+      margin-left: 2%;
+      margin-right: 2%;
+      height: 30px;
+      width: 30px;
+      border: 1px;
+      border-radius: 50%;
+      box-shadow: 6px 6px 6px -6px #777777;
+    }
+    .yellow {
+      background: yellow;
+      @include orbStyles();
+    }
+    .pink {
+      background: pink;
+      @include orbStyles();
+    }
+    .blue {
+      background: lightskyblue;
+      @include orbStyles();
+    }
+    .green {
+      background: lightgreen;
+      @include orbStyles();
+    }
+  }
 
-}
-
-.yellow{
-  display: flex;
-    background: yellow;
+  //input styles
+  .input {
+    display: flex;
+    .input-yellow .input-blue .input-pink .input-green {
+      display: flex;
+      width: 100%;
+    }
+  }
+  //highlighter button formating
+  .button-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin-left: 2%;
-		margin-right: 2%;
-    height: 30px;
-    width: 30px;
-		border: 1px;
-    border-radius: 50%;
-		box-shadow: 6px 6px 6px -6px #777777; 
-	
-}
-.pink{
-    background: pink;
-		margin-left: 2%;
-		margin-right: 2%;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-		box-shadow: 6px 6px 6px -6px #777777; 
-}
-.blue{
-    background: lightskyblue;
-		margin-left: 2%;
-		margin-right: 2%;
-    height: 30px;
-    width: 30px;		
-    border-radius: 50%;
-		box-shadow: 6px 6px 6px -6px #777777; 
-}
-.green{
-    background: green;
-		margin-left: 2%;
-		margin-right: 2%;
-    height: 30px;
-    width: 30px;
-    border-radius: 50%;
-		box-shadow: 6px 6px 6px -6px #777777; 
-}
-.input{
-    display: flex;
+    margin-right: 10%;
+    .button {
+      display: flex;
+      flex-direction: row;
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+  }
 }
 
-.input-yellow .input-blue .input-pink .input-green{
-    display: flex;
-    width:100%;
-
-}
-
-.button-col{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	margin-left: 2%;
-	margin-right: 10%;
-}
-.button {
+// Footer section of the app
+.footer {
+  height: 30px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin-left: 5%;
-  margin-right: 5%;
+  justify-content: space-around;
+  @include cardStyle();
+  .button {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
 }
 
+// button styles
 button {
-	
-    color: white;
-    background: #4C8FFB;
-    border: 1px #3079ED solid;
-    box-shadow: inset 0 1px 0 #80B0FB;
-}
+  color: white;
+  background: #4c8ffb;
+  border: 1px #3079ed solid;
+  box-shadow: inset 0 1px 0 #80b0fb;
+  outline: none;
 
-button:hover {
-    border: 1px #2F5BB7 solid;
-    box-shadow: 0 1px 1px #EAEAEA, inset 0 1px 0 #5A94F1;
-    background: #3F83F1;
-}
-
-button:active {
-    box-shadow: inset 0 2px 5px #2370FE;   
+  &:hover {
+    border: 1px #2f5bb7 solid;
+    box-shadow: 0 1px 1px #eaeaea, inset 0 1px 0 #5a94f1;
+    background: #3f83f1;
+    outline: none;
+  }
+  &:active {
+    box-shadow: inset 0 2px 5px rgb(27, 87, 199);
+    outline: none;
+  }
 }
