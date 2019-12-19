@@ -1,69 +1,80 @@
 <!DOCTYPE html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="main.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <script type="text/javascript" src="main.js"></script>
 </head>
 
 <body>
-    <div class="main-container">
-
-        <div class="row-container">
-            <img src="logo.png" alt="Nature" class="responsive">
-        </div>
-        <!--
+  <div class="main-container">
+    <div class="header">
+      <img src="logo.png" alt="Logo" class="responsive" />
+    </div>
+    <!--
         <div class="row-controls">
             <button id="addHighlighter" class="highliter_buttons">+</button>
             <button id="removeHighlighter" class="highliter_buttons">-</button>
         </div>
         -->
 
-        <div class="row-highlighters">
-
-            <div class="highlighter">
-                <div class="yellow">
-                </div>
-                <input id="input-yellow" value="">
-                <div>
-                    <button id="highlighte-yellow">Mark</button>
-                    <button id="erase-yellow">Erase</button>
-                </div>
-
-            </div>
-            <div class="highlighter">
-                <div class="pink">
-                </div>
-                <input id="input-pink" value="">
-                <div>
-                    <button id="highlighte-pink">Mark</button>
-                    <button id="erase-pink">Erase</button>
-                </div>
-            </div>
-            <div class="highlighter">
-                <div class="blue">
-                </div>
-                <input id="input-blue" value="">
-                <div>
-                    <button id="highlighte-blue">Mark</button>
-                    <button id="erase-blue">Erase</button>
-                </div>
-
-            </div>
-            <div class="highlighter">
-                <div class="green">
-                </div>
-                <input id="input-green" value="">
-
-                <div>
-                    <button id="highlighte-green">Mark</button>
-                    <button id="erase-green">Erase</button>
-                </div>
-
-            </div>
-
-            <button id="test">Highlite</button>
+    <div class="row-highlighters">
+      <div class="highlighter">
+        <div class="yellow"></div>
+        <input id="input-yellow" value="" />
+        <div class="button-col">
+          <div class="button">
+            <button id="highlighte-yellow">Mark</button>
+          </div>
+          <div class="button">
+            <button id="erase-yellow">Erase</button>
+          </div>
         </div>
-
+      </div>
+      <div class="highlighter">
+        <div class="pink"></div>
+        <input id="input-pink" value="" />
+        <div class="button-col">
+          <div class="button">
+            <button id="highlighte-pink">Mark</button>
+          </div>
+          <div class="button">
+            <button id="erase-pink">Erase</button>
+          </div>
+        </div>
+      </div>
+      <div class="highlighter">
+        <div class="blue"></div>
+        <input id="input-blue" value="" />
+        <div class="button-col">
+          <div class="button">
+            <button id="highlighte-blue">Mark</button>
+          </div>
+          <div class="button">
+            <button id="erase-blue">Erase</button>
+          </div>
+        </div>
+      </div>
+      <div class="highlighter">
+        <div class="green"></div>
+        <input id="input-green" value="" />
+        <div class="button-col">
+          <div class="button">
+            <button id="highlighte-green">Mark</button>
+          </div>
+          <div class="button">
+            <button id="erase-green">Erase</button>
+          </div>
+        </div>
+      </div>
     </div>
-
+    <div class="footer">
+      <div class="button">
+        <button id="test">Mark All</button>
+      </div>
+      <div class="button">
+        <button id="test2">Erase All</button>
+      </div>
+      
+    </div>
+  </div>
 </body>
