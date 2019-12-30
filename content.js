@@ -3,6 +3,7 @@
 // takes in a command input distructured to {action,color,phrase}
 chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, sendResponse) {
 
+
     if (action == 'erase') {
         
         console.log(phrase)

@@ -1,5 +1,6 @@
 window.onload = () => {
 
+    getTabId()
     // state of higlighted words on webpage
     state = {
         "yellow": null,
@@ -93,6 +94,14 @@ cacheRetreve = () =>{
         return res
     });
 
+}
+/**
+ * Get current active tab id
+ */
+getTabId = () =>{
+    chrome.tabs.getSelected(null, function(tab){
+        return tab.id
+    });
 }
 
 
