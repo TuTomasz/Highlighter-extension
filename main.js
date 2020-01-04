@@ -38,10 +38,14 @@ highlight = (color, input) => {
     if (isValidState(color) == true) {
         erase(color)
     }
+    //notify content.js to execute action
     execute(color, input)
+    // set state of last action
     setState(color, input)
-
+    // cashe state in chrome local storage
     cacheState(state)
+    // center top of page on every highlite
+    scrollTopPage()
     
 
 }
@@ -58,8 +62,12 @@ erase = (color) => {
             if (response == undefined || Object.keys(response).length == 0) return;
         });
     });
+    // update state
     setState(color,null)
+    // cache state in chrome local storage
     cacheState(state)
+    // center top page 
+    scrollTopPage()
 
 }
 /**
@@ -102,6 +110,12 @@ getTabId = () =>{
     chrome.tabs.getSelected(null, function(tab){
         return tab.id
     });
+}
+/**
+ * Brings focus to the top of the page on every highliter action 
+ */
+scrollTopPage = () => {
+    window.scrollTopPage()
 }
 
 
