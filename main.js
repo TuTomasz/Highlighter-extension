@@ -1,5 +1,6 @@
 window.onload = () => {
 
+    getTabId()
     // state of higlighted words on webpage
     state = {
         "yellow": null,
@@ -7,6 +8,12 @@ window.onload = () => {
         "blue": null,
         "green": null
     }
+    // updates the state variable if state exist for this tab session
+    chrome.storage.sync.get(['state'], function(result) {
+        console.log('Value currently is ' + JSON.stringify(result.state));
+        state = result.state
+    })
+    
     getState = (color) => {
         return state[color]
     }
@@ -19,6 +26,8 @@ window.onload = () => {
         }
         return false
     }
+
+
 }
 /**
  * Function higlites input text given a specific color.
@@ -32,6 +41,9 @@ highlight = (color, input) => {
     execute(color, input)
     setState(color, input)
 
+    cacheState(state)
+    
+
 }
 /**
  * Erase the given highlighter
@@ -40,11 +52,14 @@ highlight = (color, input) => {
 erase = (color) => {
 
     let lastInput = getState(color)
+    console.log(lastInput)
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         chrome.tabs.sendMessage(tabs[0].id, { action: "erase", color: color, phrase: lastInput }, function (response) {
             if (response == undefined || Object.keys(response).length == 0) return;
         });
     });
+    setState(color,null)
+    cacheState(state)
 
 }
 /**
@@ -59,6 +74,37 @@ execute = (color, input) => {
         });
     });
 }
+
+//storage
+
+/**
+ * Stores the current state in chrome sync local storage
+ * @param  {} state
+ */
+cacheState = (state) => {
+    chrome.storage.sync.set({state:state}, ()=>{
+        console.log('Value is set to ' + JSON.stringify(state));
+    })
+}
+/**
+ * Retreves the cached state from local storage
+ */
+cacheRetreve = () =>{
+    chrome.storage.sync.get(['state'],(res)=>{
+        return res
+    });
+
+}
+/**
+ * Get current active tab id
+ */
+getTabId = () =>{
+    chrome.tabs.getSelected(null, function(tab){
+        return tab.id
+    });
+}
+
+
 
 // event listeners
 document.addEventListener('DOMContentLoaded', function () {
