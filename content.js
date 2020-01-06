@@ -57,7 +57,7 @@ function erase(color,phrase) {
         }
 
     }
-    if (color == "green"){
+    if (color == "lightgreen"){
 
         if (window.find && window.getSelection) {
             document.designMode = "on";
@@ -74,7 +74,7 @@ function erase(color,phrase) {
         }
 
     }
-    if (color == "blue"){
+    if (color == "lightblue"){
 
         if (window.find && window.getSelection) {
             document.designMode = "on";

@@ -115,7 +115,7 @@ getTabId = () =>{
  * Brings focus to the top of the page on every highliter action 
  */
 scrollTopPage = () => {
-    window.scrollTopPage()
+    window.scroll(0,0)
 }
 
 
@@ -133,11 +133,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     document.getElementById('highlighte-blue').addEventListener('click', function () {
         let input = document.getElementById("input-blue").value
-        highlight("blue", input)
+        highlight("lightblue", input)
     });
     document.getElementById('highlighte-green').addEventListener('click', function () {
         let input = document.getElementById("input-green").value
-        highlight("green", input)
+        highlight("lightgreen", input)
     });
 
     document.getElementById('erase-yellow').addEventListener('click', () => {
@@ -147,9 +147,9 @@ document.addEventListener('DOMContentLoaded', function () {
         erase("pink")
     })
     document.getElementById('erase-blue').addEventListener('click', () => {
-        erase('blue')
+        erase('lightblue')
     })
     document.getElementById('erase-green').addEventListener('click', () => {
-        erase('green')
+        erase('lightgreen')
     })
 });
