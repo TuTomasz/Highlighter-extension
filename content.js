@@ -15,6 +15,9 @@ chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, 
         highlighte({color,phrase})
         sendResponse({});
     }
+    if (action == 'erase all'){
+        location.reload(true);
+    }
 });
 
 /**

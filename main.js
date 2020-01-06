@@ -10,7 +10,7 @@ window.onload = () => {
     }
     // updates the state variable if state exist for this tab session
     chrome.storage.sync.get(['state'], function(result) {
-        console.log('Value currently is ' + JSON.stringify(result.state));
+        //console.log('Value currently is ' + JSON.stringify(result.state));
         state = result.state
     })
     
@@ -44,8 +44,7 @@ highlight = (color, input) => {
     setState(color, input)
     // cashe state in chrome local storage
     cacheState(state)
-    // center top of page on every highlite
-    scrollTopPage()
+
     
 
 }
@@ -66,9 +65,14 @@ erase = (color) => {
     setState(color,null)
     // cache state in chrome local storage
     cacheState(state)
-    // center top page 
-    scrollTopPage()
 
+}
+eraseAll = () =>{
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, { action: "erase all"}, function (response) {
+            if (response == undefined || Object.keys(response).length == 0) return;
+        });
+    });
 }
 /**
  * Messages the injected content script to execute highlighte operation
@@ -91,7 +95,7 @@ execute = (color, input) => {
  */
 cacheState = (state) => {
     chrome.storage.sync.set({state:state}, ()=>{
-        console.log('Value is set to ' + JSON.stringify(state));
+        //console.log('Value is set to ' + JSON.stringify(state));
     })
 }
 /**
@@ -111,14 +115,6 @@ getTabId = () =>{
         return tab.id
     });
 }
-/**
- * Brings focus to the top of the page on every highliter action 
- */
-scrollTopPage = () => {
-    window.scroll(0,0)
-}
-
-
 
 // event listeners
 document.addEventListener('DOMContentLoaded', function () {
@@ -132,13 +128,30 @@ document.addEventListener('DOMContentLoaded', function () {
         highlight("pink", input)
     });
     document.getElementById('highlighte-blue').addEventListener('click', function () {
-        let input = document.getElementById("input-blue").value
+        let input = document.getElementById("input-lightblue").value
         highlight("lightblue", input)
     });
     document.getElementById('highlighte-green').addEventListener('click', function () {
-        let input = document.getElementById("input-green").value
+        let input = document.getElementById("input-lightgreen").value
         highlight("lightgreen", input)
     });
+    
+    document.getElementById('highlighte-all').addEventListener('click', function () {
+        
+        let Inputs = {"input-yellow": null,"input-pink":null,"input-lightblue":null,"input-lightgreen":null}
+
+        Object.keys(Inputs).forEach(element => {
+            let input = document.getElementById(element).value
+            Inputs[element] = input
+        });
+        // Highlites using all highliters
+        Object.keys(Inputs).forEach(element =>{
+            let key = element.split("-").pop()
+            console.log(key)
+            highlight(key,Inputs[element])
+        })
+    });
+   
 
     document.getElementById('erase-yellow').addEventListener('click', () => {
         erase("yellow")
@@ -152,4 +165,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('erase-green').addEventListener('click', () => {
         erase('lightgreen')
     })
+    document.getElementById('erase-all').addEventListener('click',  () => {
+        eraseAll()
+    });
 });
