@@ -7,7 +7,7 @@ chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, 
     if (action == 'erase') {
         
         console.log(phrase)
-        erase(color,phrase)
+        erase(phrase)
         sendResponse({});
     }
     if (action == 'mark') {
@@ -22,80 +22,20 @@ chrome.extension.onMessage.addListener(function ({action,color,phrase}, sender, 
 
 /**
  * Erase the previously highlighted word/phrase/
+ * @param  {} phrase} - word/phrase to highlite
  */
-function erase(color,phrase) {
+erase = (phrase) =>{
 
-    if (color == "yellow"){
-
-        if (window.find && window.getSelection) {
-            document.designMode = "on";
-            var sel = window.getSelection();
-            sel.collapse(document.body, 0);
-    
-            while (window.find(phrase)) {
-    
-                document.execCommand("RemoveFormat", false, null);
-                
-
-            }
-            document.designMode = "off";
+    if (window.find && window.getSelection) {
+        document.designMode = "on";
+        var sel = window.getSelection();
+        sel.collapse(document.body, 0);
+        while (window.find(phrase)) {
+            document.execCommand("RemoveFormat", false, null);
         }
-
+        document.designMode = "off";
     }
-
-    if (color == "pink"){
-
-        if (window.find && window.getSelection) {
-            document.designMode = "on";
-            var sel = window.getSelection();
-            sel.collapse(document.body, 0);
-    
-            while (window.find(phrase)) {
-    
-                document.execCommand("RemoveFormat", false, null);
-                
-    
-            }
-            document.designMode = "off";
-        }
-
-    }
-    if (color == "lightgreen"){
-
-        if (window.find && window.getSelection) {
-            document.designMode = "on";
-            var sel = window.getSelection();
-            sel.collapse(document.body, 0);
-    
-            while (window.find(phrase)) {
-    
-                document.execCommand("RemoveFormat", false, null);
-                
-    
-            }
-            document.designMode = "off";
-        }
-
-    }
-    if (color == "lightblue"){
-
-        if (window.find && window.getSelection) {
-            document.designMode = "on";
-            var sel = window.getSelection();
-            sel.collapse(document.body, 0);
-    
-            while (window.find(phrase)) {
-    
-                document.execCommand("RemoveFormat", false, null);
-                
-    
-            }
-            document.designMode = "off";
-        }
-
-    }
-
-   
+    return sel;
 }
 
 /**
@@ -103,7 +43,7 @@ function erase(color,phrase) {
  * @param  {} {color - color of highlighter
  * @param  {} phrase} - word/phrase to highlite
  */
-function highlighte({color,phrase}){
+highlighte = ({color,phrase}) =>{
 
     if (window.find && window.getSelection) {
         document.designMode = "on";
