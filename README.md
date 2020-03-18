@@ -3,9 +3,9 @@ Multi-color highlighter chrome extension for highlighting text on a website of y
 
 ## Instalation Instructions 
 
-- clone the project repository on your local machine
-- In the chrome, settings go to extensions and turn on developer mode
-- Click on load unpacked and select the project folder and enjoy
+- Clone the project repository on your local machine.
+- In the chrome, settings go to extensions and turn on developer mode.
+- Click on load unpacked and select the project folder and enjoy!
 
 ## Application Demo
 ![](demo.gif)
